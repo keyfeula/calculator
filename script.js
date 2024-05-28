@@ -2,6 +2,9 @@ let operand1 = 0;
 let operand2 = 0;
 let operator = "";
 
+const calcBody = document.querySelector(".calc-body");
+const display = document.querySelector(".display");
+
 function add(a, b) {
     return a + b;
 }
@@ -38,3 +41,13 @@ function operate(operand1, operand2, operator) {
     }
     return result;
 }
+
+function displayHandler(event) {
+    let target = event.target;
+    if (target.tagName === "BUTTON") {
+        display.textContent += target.textContent;
+    }
+}
+
+calcBody.addEventListener("click", displayHandler);
+
