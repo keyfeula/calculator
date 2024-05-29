@@ -1,4 +1,3 @@
-let displayValue = "0";
 let result = 0;
 let expression = ["", "", ""];
 
@@ -62,7 +61,14 @@ function displayHandler(event) {
         lastDisplay.textContent = "";
     }
     else if (buttonText === "DELETE") {
-        
+        if (expression[2] === "") {
+            expression[0] = expression[0].slice(0, -1);
+            currentDisplay.textContent = expression[0];
+        }
+        else {
+            expression[2] = expression[2].slice(0, -1);
+            currentDisplay.textContent = expression[2];
+        }
     }
     else if (buttonText === "=") {
         if (expression[1] === "/" && expression[2] === "0") {
