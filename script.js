@@ -1,9 +1,10 @@
-let operand1 = 0;
-let operand2 = 0;
+let operand1 = null;
+let operand2 = null;
 let operator = "";
 
 let displayValue = "";
 let result = 0;
+let operatorPressed = false;
 
 const calcBody = document.querySelector(".calc-body");
 const currentDisplay = document.querySelector(".current-display");
@@ -34,7 +35,7 @@ function operate(operand1, operand2, operator) {
         case "-":
             result = subtract(operand1, operand2);
             break;
-        case "*":
+        case "x":
             result = multiply(operand1, operand2);
             break;
         case "/":
@@ -56,22 +57,42 @@ function getDisplayValue() {
 
 function displayHandler(event) {
     let target = event.target;
+
     if (target.tagName === "BUTTON") {
         let textContent = target.textContent;
         if (textContent === "CLEAR") {
-            updateDisplay("");
+            lastDisplay.textContent = "";
+            currentDisplay.textContent = "";
             displayValue = "";
+            operand1 = null;
+            operand2 = null;
+            operator = "";
+            operatorPressed = false;
         }
         else if (textContent === "DELETE") {
             displayValue = displayValue.slice(0, -1);
             currentDisplay.textContent = displayValue;
         }
         else if (textContent === "=") {
-
+            let result = operate(operand1, operand2, operator);
+            currentDisplay.textContent = result;
+        }
+        else if (!isNaN(textContent)){
+            displayValue += target.textContent;
+            if (!operatorPressed) {
+                operand1 = Number(displayValue);
+            }
+            else {
+                operand2 = Number(displayValue);
+            }
+            currentDisplay.textContent = displayValue;
         }
         else {
-            updateDisplay(getDisplayValue() + target.textContent);
-            displayValue += target.textContent;
+            lastDisplay.textContent = `${displayValue} ${target.textContent}`;
+            operator = textContent;
+            currentDisplay.textContent = operand1;
+            operatorPressed = true;
+            displayValue = "";
         }
     }
 }
