@@ -2,8 +2,12 @@ let operand1 = 0;
 let operand2 = 0;
 let operator = "";
 
+let displayValue = "";
+let result = 0;
+
 const calcBody = document.querySelector(".calc-body");
-const display = document.querySelector(".display");
+const currentDisplay = document.querySelector(".current-display");
+const lastDisplay = document.querySelector(".last-display");
 
 function add(a, b) {
     return a + b;
@@ -42,10 +46,33 @@ function operate(operand1, operand2, operator) {
     return result;
 }
 
+function updateDisplay(str) {
+    currentDisplay.textContent = str;
+}
+
+function getDisplayValue() {
+    return currentDisplay.textContent;
+}
+
 function displayHandler(event) {
     let target = event.target;
     if (target.tagName === "BUTTON") {
-        display.textContent += target.textContent;
+        let textContent = target.textContent;
+        if (textContent === "CLEAR") {
+            updateDisplay("");
+            displayValue = "";
+        }
+        else if (textContent === "DELETE") {
+            displayValue = displayValue.slice(0, -1);
+            currentDisplay.textContent = displayValue;
+        }
+        else if (textContent === "=") {
+
+        }
+        else {
+            updateDisplay(getDisplayValue() + target.textContent);
+            displayValue += target.textContent;
+        }
     }
 }
 
