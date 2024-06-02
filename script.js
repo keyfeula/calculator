@@ -147,11 +147,11 @@ function displayHandler(event) {
         }
     }
     else {
-        if (currentOperand === "operand1") {
+        if (currentOperand === "operand1" && operand1.length <= 22) {
             operand1 += buttonText;
             currentDisplay.textContent = operand1;
         }
-        else {
+        else if (currentOperand === "operand2" && operand2.length <= 22) {
             operand2 += buttonText;
             if (operand2 === "0" && operator === "/") {
                 alert("You can't divide by 0!");
