@@ -127,7 +127,7 @@ function displayHandler(event) {
         }
     }
     else if (buttonText === "=") {
-        if (operand1 !== "" && operand2 !== "" && operator !== "") {
+        if (operand1 !== "" && operand2 !== "" && operator !== "" && operand2 !== "-") {
             result = operate(operand1, operand2, operator);
             lastDisplay.textContent = `${operand1} ${operator} ${operand2} =`;
             currentDisplay.textContent = `${result}`;
